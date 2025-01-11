@@ -1,0 +1,42 @@
+name: "🐞 Bug"
+description: "버그 제보"
+labels: "bug"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 버그 제보
+        - 발견한 버그에 대한 상세 정보를 제공해주세요.
+        - 관련 스크린샷을 첨부하면 더욱 빠른 해결이 가능합니다.
+
+  - type: textarea
+    attributes:
+      label: "📄 설명"
+      description: "발견한 버그에 대한 설명을 작성해주세요."
+      placeholder: "어디에서 문제가 발생했는지 설명해주세요."
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "📸 스크린샷 / 로그"
+      description: "관련된 스크린샷 또는 콘솔 에러 로그를 첨부해주세요."
+      placeholder: "스크린샷 또는 콘솔 에러"
+
+  - type: textarea
+    attributes:
+      label: "💻 환경 정보"
+      description: "버그가 발생한 환경을 작성해주세요."
+      placeholder: "사용한 서버나 기기를 작성해주세요."
+
+  - type: textarea
+    attributes:
+      label: "📎 참고"
+      description: "참고할 자료가 있다면 링크 또는 자료를 첨부해주세요."
+      placeholder: "https://example.com"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        이상입니다.
