@@ -3,3 +3,11 @@ models/final_outputs
 
 # demo
 back/env.sh
+
+# files
+*.csv
+*.npy
+__pycache__
+
+# api file
+config_api_key.yaml
