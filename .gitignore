@@ -1,5 +1,7 @@
 # models
 models/final_outputs
+models/product_summarization/config/config_v1.yaml
+models/product_summarization/data/*
 
 # demo
 back/env.sh
