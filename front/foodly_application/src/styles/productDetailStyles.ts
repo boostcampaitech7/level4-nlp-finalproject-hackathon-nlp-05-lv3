@@ -1,0 +1,133 @@
+import { StyleSheet } from 'react-native';
+
+export const productDetailStyles = StyleSheet.create({
+  image: {
+    width: 220,
+    height: 220,
+    resizeMode: 'contain',
+    borderRadius: 8,
+    marginBottom: 16,
+    alignSelf: 'center',
+  },
+  placeholderImage: {
+    width: 200,
+    height: 200,
+    backgroundColor: '#ddd',
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  name: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  mallpriceContainer: {
+    marginHorizontal: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  mall: {
+    fontSize: 16,
+    color: '#7f8c8d',
+  },
+  priceContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline'
+  },
+  beforePrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#7f8c8d',
+    textDecorationLine: 'line-through',
+    marginRight: 8,
+  },
+  market: {
+    fontSize: 16,
+    color: '#7f8c8d',
+    textAlign: 'center',
+  },
+  price: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    textAlign: 'center',
+  },
+  discountButton: {
+    backgroundColor: '#CD4747',
+    height: 48,
+    borderRadius: 8,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  discount: {
+    fontSize: 24,
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  deliveryButton: {
+    backgroundColor: '#FFD040',
+    height: 48,
+    borderRadius: 8,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  delivery: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 4,
+  },
+  rating: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginVertical: 4,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  cartButton: {
+    flex: 1,
+    backgroundColor: '#4DAED2',
+    height: 64,
+    padding: 12,
+    marginRight: 8,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buyButton: {
+    flex: 1,
+    backgroundColor: '#0F5975',
+    height: 64,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+  bottomFixedContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    padding: 8,
+    marginHorizontal: 12,
+    justifyContent: 'space-between',
+  },
+});
