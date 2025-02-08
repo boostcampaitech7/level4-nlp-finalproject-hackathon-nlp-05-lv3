@@ -11,3 +11,5 @@ __pycache__
 
 # api file
 config_api_key.yaml
+
+.env
