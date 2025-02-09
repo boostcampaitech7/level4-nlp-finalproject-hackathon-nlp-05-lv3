@@ -10,10 +10,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoryResponseServiceDTO {
+public class CategoryServiceResponseDTO {
     private Long categoryId;
     private String name;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<CategoryAspectResponseServiceDTO> aspects;
+    private List<CategoryAspectServiceResponseDTO> aspects;
 }

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DescriptionResponseServiceDTO {
+public class DescriptionServiceResponseDTO {
 
     private Long productId;
     private String summaryExp;
