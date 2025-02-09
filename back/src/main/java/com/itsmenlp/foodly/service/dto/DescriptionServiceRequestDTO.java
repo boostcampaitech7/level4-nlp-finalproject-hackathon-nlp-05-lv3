@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DescriptionRequestServiceDTO {
+public class DescriptionServiceRequestDTO {
 
     private String summaryExp;
     private String summaryCook;

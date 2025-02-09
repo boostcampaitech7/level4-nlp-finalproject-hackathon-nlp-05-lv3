@@ -5,7 +5,7 @@ import com.itsmenlp.foodly.controller.dto.ProductResponseDTO;
 import com.itsmenlp.foodly.exception.ResourceNotFoundException;
 import com.itsmenlp.foodly.service.ProductService;
 import com.itsmenlp.foodly.service.dto.ProductCreateRequestDTO;
-import com.itsmenlp.foodly.service.dto.ProductResponseServiceDTO;
+import com.itsmenlp.foodly.service.dto.ProductServiceResponseDTO;
 import com.itsmenlp.foodly.service.dto.ProductUpdateRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +42,7 @@ public class ProductController {
                 .coupon(productRequestDTO.getCoupon())
                 .delivery(productRequestDTO.getDelivery())
                 .build();
-        ProductResponseServiceDTO serviceResponse = productService.createProduct(createDTO);
+        ProductServiceResponseDTO serviceResponse = productService.createProduct(createDTO);
         ProductResponseDTO responseDTO = mapToResponseDTO(serviceResponse);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
@@ -50,7 +50,7 @@ public class ProductController {
     // 특정 상품 조회
     @GetMapping("/{id:\\d+}")
     public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable("id") Long productId) {
-        ProductResponseServiceDTO serviceResponse = productService.getProductById(productId);
+        ProductServiceResponseDTO serviceResponse = productService.getProductById(productId);
         ProductResponseDTO responseDTO = mapToResponseDTO(serviceResponse);
         return ResponseEntity.ok(responseDTO);
     }
@@ -58,7 +58,7 @@ public class ProductController {
     // 모든 상품 조회
     @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
-        List<ProductResponseServiceDTO> serviceResponses = productService.getAllProducts();
+        List<ProductServiceResponseDTO> serviceResponses = productService.getAllProducts();
         List<ProductResponseDTO> responseDTOs = serviceResponses.stream()
                 .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
@@ -68,7 +68,7 @@ public class ProductController {
     // 특정 카테고리의 상품 조회
     @GetMapping("/categories/{categoryId}")
     public ResponseEntity<List<ProductResponseDTO>> getProductsByCategoryId(@PathVariable("categoryId") Long categoryId) {
-        List<ProductResponseServiceDTO> serviceResponses = productService.getProductsByCategoryId(categoryId);
+        List<ProductServiceResponseDTO> serviceResponses = productService.getProductsByCategoryId(categoryId);
         List<ProductResponseDTO> responseDTOs = serviceResponses.stream()
                 .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
@@ -92,7 +92,7 @@ public class ProductController {
                 .coupon(productRequestDTO.getCoupon())
                 .delivery(productRequestDTO.getDelivery())
                 .build();
-        ProductResponseServiceDTO serviceResponse = productService.updateProduct(productId, updateDTO);
+        ProductServiceResponseDTO serviceResponse = productService.updateProduct(productId, updateDTO);
         ProductResponseDTO responseDTO = mapToResponseDTO(serviceResponse);
         return ResponseEntity.ok(responseDTO);
     }
@@ -105,7 +105,7 @@ public class ProductController {
     }
 
     // DTO 매핑 메서드
-    private ProductResponseDTO mapToResponseDTO(ProductResponseServiceDTO serviceResponse) {
+    private ProductResponseDTO mapToResponseDTO(ProductServiceResponseDTO serviceResponse) {
         return ProductResponseDTO.builder()
                 .productId(serviceResponse.getProductId())
                 .categoryId(serviceResponse.getCategoryId())
@@ -127,7 +127,7 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<List<ProductResponseDTO>> getProductsByName(@RequestParam("name") String name) {
         // Service를 통해 검색
-        List<ProductResponseServiceDTO> serviceResponses = productService.getProductsByName(name);
+        List<ProductServiceResponseDTO> serviceResponses = productService.getProductsByName(name);
 
         // Controller에서 쓰는 DTO로 변환
         List<ProductResponseDTO> responseDTOs = serviceResponses.stream()

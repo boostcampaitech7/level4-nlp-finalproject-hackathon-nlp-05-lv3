@@ -11,8 +11,8 @@ import com.itsmenlp.foodly.service.dto.CategoryCreateRequestDTO;
 import com.itsmenlp.foodly.service.dto.CategoryUpdateRequestDTO;
 import com.itsmenlp.foodly.service.dto.CategoryAspectCreateRequestDTO;
 import com.itsmenlp.foodly.service.dto.CategoryAspectUpdateRequestDTO;
-import com.itsmenlp.foodly.service.dto.CategoryResponseServiceDTO;
-import com.itsmenlp.foodly.service.dto.CategoryAspectResponseServiceDTO;
+import com.itsmenlp.foodly.service.dto.CategoryServiceResponseDTO;
+import com.itsmenlp.foodly.service.dto.CategoryAspectServiceResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,21 +42,21 @@ public class CategoryController {
         CategoryCreateRequestDTO createDTO = CategoryCreateRequestDTO.builder()
                 .name(categoryRequestDTO.getName())
                 .build();
-        CategoryResponseServiceDTO serviceResponse = categoryService.createCategory(createDTO);
+        CategoryServiceResponseDTO serviceResponse = categoryService.createCategory(createDTO);
         CategoryResponseDTO responseDTO = mapToResponseDTO(serviceResponse);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponseDTO> getCategoryById(@PathVariable("id") Long categoryId) {
-        CategoryResponseServiceDTO serviceResponse = categoryService.getCategoryById(categoryId);
+        CategoryServiceResponseDTO serviceResponse = categoryService.getCategoryById(categoryId);
         CategoryResponseDTO responseDTO = mapToResponseDTO(serviceResponse);
         return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping
     public ResponseEntity<List<CategoryResponseDTO>> getAllCategories() {
-        List<CategoryResponseServiceDTO> serviceResponses = categoryService.getAllCategories();
+        List<CategoryServiceResponseDTO> serviceResponses = categoryService.getAllCategories();
         List<CategoryResponseDTO> responseDTOs = serviceResponses.stream()
                 .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
@@ -70,7 +70,7 @@ public class CategoryController {
         CategoryUpdateRequestDTO updateDTO = CategoryUpdateRequestDTO.builder()
                 .name(categoryRequestDTO.getName())
                 .build();
-        CategoryResponseServiceDTO serviceResponse = categoryService.updateCategory(categoryId, updateDTO);
+        CategoryServiceResponseDTO serviceResponse = categoryService.updateCategory(categoryId, updateDTO);
         CategoryResponseDTO responseDTO = mapToResponseDTO(serviceResponse);
         return ResponseEntity.ok(responseDTO);
     }
@@ -89,14 +89,14 @@ public class CategoryController {
         CategoryAspectCreateRequestDTO createDTO = CategoryAspectCreateRequestDTO.builder()
                 .aspect(aspectRequestDTO.getAspect())
                 .build();
-        CategoryAspectResponseServiceDTO serviceResponse = categoryAspectService.createAspect(categoryId, createDTO);
+        CategoryAspectServiceResponseDTO serviceResponse = categoryAspectService.createAspect(categoryId, createDTO);
         CategoryAspectResponseDTO responseDTO = mapToAspectResponseDTO(serviceResponse);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/{categoryId}/aspects")
     public ResponseEntity<List<CategoryAspectResponseDTO>> getAllAspectsByCategory(@PathVariable("categoryId") Long categoryId) {
-        List<CategoryAspectResponseServiceDTO> serviceResponses = categoryAspectService.getAllAspectsByCategory(categoryId);
+        List<CategoryAspectServiceResponseDTO> serviceResponses = categoryAspectService.getAllAspectsByCategory(categoryId);
         List<CategoryAspectResponseDTO> responseDTOs = serviceResponses.stream()
                 .map(this::mapToAspectResponseDTO)
                 .collect(Collectors.toList());
@@ -105,7 +105,7 @@ public class CategoryController {
 
     @GetMapping("/aspects/{id}")
     public ResponseEntity<CategoryAspectResponseDTO> getAspectById(@PathVariable("id") Long aspectId) {
-        CategoryAspectResponseServiceDTO serviceResponse = categoryAspectService.getAspectById(aspectId);
+        CategoryAspectServiceResponseDTO serviceResponse = categoryAspectService.getAspectById(aspectId);
         CategoryAspectResponseDTO responseDTO = mapToAspectResponseDTO(serviceResponse);
         return ResponseEntity.ok(responseDTO);
     }
@@ -117,7 +117,7 @@ public class CategoryController {
         CategoryAspectUpdateRequestDTO updateDTO = CategoryAspectUpdateRequestDTO.builder()
                 .aspect(aspectRequestDTO.getAspect())
                 .build();
-        CategoryAspectResponseServiceDTO serviceResponse = categoryAspectService.updateAspect(aspectId, updateDTO);
+        CategoryAspectServiceResponseDTO serviceResponse = categoryAspectService.updateAspect(aspectId, updateDTO);
         CategoryAspectResponseDTO responseDTO = mapToAspectResponseDTO(serviceResponse);
         return ResponseEntity.ok(responseDTO);
     }
@@ -130,7 +130,7 @@ public class CategoryController {
 
     // DTO 매핑 메서드
 
-    private CategoryResponseDTO mapToResponseDTO(CategoryResponseServiceDTO serviceResponse) {
+    private CategoryResponseDTO mapToResponseDTO(CategoryServiceResponseDTO serviceResponse) {
         return CategoryResponseDTO.builder()
                 .categoryId(serviceResponse.getCategoryId())
                 .name(serviceResponse.getName())
@@ -144,7 +144,7 @@ public class CategoryController {
                 .build();
     }
 
-    private CategoryAspectResponseDTO mapToAspectResponseDTO(CategoryAspectResponseServiceDTO serviceResponse) {
+    private CategoryAspectResponseDTO mapToAspectResponseDTO(CategoryAspectServiceResponseDTO serviceResponse) {
         return CategoryAspectResponseDTO.builder()
                 .id(serviceResponse.getId())
                 .aspect(serviceResponse.getAspect())

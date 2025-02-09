@@ -5,8 +5,8 @@ import com.itsmenlp.foodly.entity.Product;
 import com.itsmenlp.foodly.exception.ResourceNotFoundException;
 import com.itsmenlp.foodly.repository.DescriptionRepository;
 import com.itsmenlp.foodly.repository.ProductRepository;
-import com.itsmenlp.foodly.service.dto.DescriptionRequestServiceDTO;
-import com.itsmenlp.foodly.service.dto.DescriptionResponseServiceDTO;
+import com.itsmenlp.foodly.service.dto.DescriptionServiceRequestDTO;
+import com.itsmenlp.foodly.service.dto.DescriptionServiceResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ public class DescriptionServiceImpl implements DescriptionService {
 
     @Override
     @Transactional
-    public DescriptionResponseServiceDTO createDescription(Long productId, DescriptionRequestServiceDTO requestDTO) {
+    public DescriptionServiceResponseDTO createDescription(Long productId, DescriptionServiceRequestDTO requestDTO) {
         // 상품 존재 여부 확인
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));
@@ -60,7 +60,7 @@ public class DescriptionServiceImpl implements DescriptionService {
 
     @Override
     @Transactional(readOnly = true)
-    public DescriptionResponseServiceDTO getDescription(Long productId) {
+    public DescriptionServiceResponseDTO getDescription(Long productId) {
         Description description = descriptionRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Description not found for product id: " + productId));
         return mapToServiceResponseDTO(description);
@@ -68,7 +68,7 @@ public class DescriptionServiceImpl implements DescriptionService {
 
     @Override
     @Transactional
-    public DescriptionResponseServiceDTO updateDescription(Long productId, DescriptionRequestServiceDTO requestDTO) {
+    public DescriptionServiceResponseDTO updateDescription(Long productId, DescriptionServiceRequestDTO requestDTO) {
         Description description = descriptionRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Description not found for product id: " + productId));
 
@@ -104,8 +104,8 @@ public class DescriptionServiceImpl implements DescriptionService {
         descriptionRepository.delete(description);
     }
 
-    private DescriptionResponseServiceDTO mapToServiceResponseDTO(Description description) {
-        return DescriptionResponseServiceDTO.builder()
+    private DescriptionServiceResponseDTO mapToServiceResponseDTO(Description description) {
+        return DescriptionServiceResponseDTO.builder()
                 .productId(description.getProduct().getProductId())
                 .summaryExp(description.getSummaryExp())
                 .summaryCook(description.getSummaryCook())

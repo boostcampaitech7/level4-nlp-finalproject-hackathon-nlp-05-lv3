@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductRankResponse {
+public class ProductRankRequestDTO {
     private Integer productRankId;
     private Integer productId;
     private Integer aspectId;

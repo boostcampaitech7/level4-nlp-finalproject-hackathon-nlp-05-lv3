@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoryAspectResponseServiceDTO {
+public class CategoryAspectServiceResponseDTO {
     private Long id;
     private String aspect;
 }
