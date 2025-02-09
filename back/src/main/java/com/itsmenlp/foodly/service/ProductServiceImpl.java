@@ -5,7 +5,7 @@ import com.itsmenlp.foodly.entity.Product;
 import com.itsmenlp.foodly.repository.CategoryRepository;
 import com.itsmenlp.foodly.repository.ProductRepository;
 import com.itsmenlp.foodly.service.dto.ProductCreateRequestDTO;
-import com.itsmenlp.foodly.service.dto.ProductResponseServiceDTO;
+import com.itsmenlp.foodly.service.dto.ProductServiceResponseDTO;
 import com.itsmenlp.foodly.service.dto.ProductUpdateRequestDTO;
 import com.itsmenlp.foodly.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseServiceDTO createProduct(ProductCreateRequestDTO dto) {
+    public ProductServiceResponseDTO createProduct(ProductCreateRequestDTO dto) {
         Category category = categoryRepository.findById(dto.getCategoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + dto.getCategoryId()));
 
@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public ProductResponseServiceDTO getProductById(Long productId) {
+    public ProductServiceResponseDTO getProductById(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + productId));
         return mapToResponseDTO(product);
@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductResponseServiceDTO> getAllProducts() {
+    public List<ProductServiceResponseDTO> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream()
                 .map(this::mapToResponseDTO)
@@ -69,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductResponseServiceDTO> getProductsByCategoryId(Long categoryId) {
+    public List<ProductServiceResponseDTO> getProductsByCategoryId(Long categoryId) {
         List<Product> products = productRepository.findByCategory_CategoryId(categoryId);
         return products.stream()
                 .map(this::mapToResponseDTO)
@@ -77,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseServiceDTO updateProduct(Long productId, ProductUpdateRequestDTO dto) {
+    public ProductServiceResponseDTO updateProduct(Long productId, ProductUpdateRequestDTO dto) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + productId));
 
@@ -109,15 +109,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductResponseServiceDTO> getProductsByName(String name) {
+    public List<ProductServiceResponseDTO> getProductsByName(String name) {
         List<Product> products = productRepository.findByNameContaining(name);
         return products.stream()
                 .map(this::mapToResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    private ProductResponseServiceDTO mapToResponseDTO(Product product) {
-        return ProductResponseServiceDTO.builder()
+    private ProductServiceResponseDTO mapToResponseDTO(Product product) {
+        return ProductServiceResponseDTO.builder()
                 .productId(product.getProductId())
                 .categoryId(product.getCategory() != null ? product.getCategory().getCategoryId() : null)
                 .name(product.getName())

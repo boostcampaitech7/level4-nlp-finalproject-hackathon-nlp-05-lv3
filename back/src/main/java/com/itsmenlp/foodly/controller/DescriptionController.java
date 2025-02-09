@@ -3,8 +3,8 @@ package com.itsmenlp.foodly.controller;
 import com.itsmenlp.foodly.controller.dto.DescriptionRequestDTO;
 import com.itsmenlp.foodly.controller.dto.DescriptionResponseDTO;
 import com.itsmenlp.foodly.service.DescriptionService;
-import com.itsmenlp.foodly.service.dto.DescriptionRequestServiceDTO;
-import com.itsmenlp.foodly.service.dto.DescriptionResponseServiceDTO;
+import com.itsmenlp.foodly.service.dto.DescriptionServiceRequestDTO;
+import com.itsmenlp.foodly.service.dto.DescriptionServiceResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class DescriptionController {
             @RequestBody DescriptionRequestDTO requestDTO) {
 
         // Controller DTO를 Service DTO로 변환
-        DescriptionRequestServiceDTO serviceRequestDTO = DescriptionRequestServiceDTO.builder()
+        DescriptionServiceRequestDTO serviceRequestDTO = DescriptionServiceRequestDTO.builder()
                 .summaryExp(requestDTO.getSummaryExp())
                 .summaryCook(requestDTO.getSummaryCook())
                 .summaryStore(requestDTO.getSummaryStore())
@@ -48,7 +48,7 @@ public class DescriptionController {
                 .reviewBadDeliveryNum(requestDTO.getReviewBadDeliveryNum())
                 .build();
 
-        DescriptionResponseServiceDTO serviceResponseDTO = descriptionService.createDescription(productId, serviceRequestDTO);
+        DescriptionServiceResponseDTO serviceResponseDTO = descriptionService.createDescription(productId, serviceRequestDTO);
 
         // Service DTO를 Controller DTO로 변환
         DescriptionResponseDTO responseDTO = DescriptionResponseDTO.builder()
@@ -84,7 +84,7 @@ public class DescriptionController {
      */
     @GetMapping("/{productId}")
     public ResponseEntity<DescriptionResponseDTO> getDescription(@PathVariable Long productId) {
-        DescriptionResponseServiceDTO serviceResponseDTO = descriptionService.getDescription(productId);
+        DescriptionServiceResponseDTO serviceResponseDTO = descriptionService.getDescription(productId);
 
         // Service DTO를 Controller DTO로 변환
         return getDescriptionResponseDTOResponseEntity(serviceResponseDTO);
@@ -100,7 +100,7 @@ public class DescriptionController {
             @RequestBody DescriptionRequestDTO requestDTO) {
 
         // Controller DTO를 Service DTO로 변환
-        DescriptionRequestServiceDTO serviceRequestDTO = DescriptionRequestServiceDTO.builder()
+        DescriptionServiceRequestDTO serviceRequestDTO = DescriptionServiceRequestDTO.builder()
                 .summaryExp(requestDTO.getSummaryExp())
                 .summaryCook(requestDTO.getSummaryCook())
                 .summaryStore(requestDTO.getSummaryStore())
@@ -121,7 +121,7 @@ public class DescriptionController {
                 .reviewBadDeliveryNum(requestDTO.getReviewBadDeliveryNum())
                 .build();
 
-        DescriptionResponseServiceDTO serviceResponseDTO = descriptionService.updateDescription(productId, serviceRequestDTO);
+        DescriptionServiceResponseDTO serviceResponseDTO = descriptionService.updateDescription(productId, serviceRequestDTO);
 
         // Service DTO를 Controller DTO로 변환
         return getDescriptionResponseDTOResponseEntity(serviceResponseDTO);
@@ -137,7 +137,7 @@ public class DescriptionController {
         return ResponseEntity.noContent().build();
     }
 
-    private ResponseEntity<DescriptionResponseDTO> getDescriptionResponseDTOResponseEntity(DescriptionResponseServiceDTO serviceResponseDTO) {
+    private ResponseEntity<DescriptionResponseDTO> getDescriptionResponseDTOResponseEntity(DescriptionServiceResponseDTO serviceResponseDTO) {
         DescriptionResponseDTO responseDTO = DescriptionResponseDTO.builder()
                 .productId(serviceResponseDTO.getProductId())
                 .summaryExp(serviceResponseDTO.getSummaryExp())

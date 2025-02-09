@@ -6,7 +6,7 @@ import com.itsmenlp.foodly.exception.ResourceNotFoundException;
 import com.itsmenlp.foodly.repository.CategoryAspectRepository;
 import com.itsmenlp.foodly.repository.CategoryRepository;
 import com.itsmenlp.foodly.service.dto.CategoryAspectCreateRequestDTO;
-import com.itsmenlp.foodly.service.dto.CategoryAspectResponseServiceDTO;
+import com.itsmenlp.foodly.service.dto.CategoryAspectServiceResponseDTO;
 import com.itsmenlp.foodly.service.dto.CategoryAspectUpdateRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class CategoryAspectServiceImpl implements CategoryAspectService {
     }
 
     @Override
-    public CategoryAspectResponseServiceDTO createAspect(Long categoryId, CategoryAspectCreateRequestDTO dto) {
+    public CategoryAspectServiceResponseDTO createAspect(Long categoryId, CategoryAspectCreateRequestDTO dto) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + categoryId));
 
@@ -44,7 +44,7 @@ public class CategoryAspectServiceImpl implements CategoryAspectService {
 
     @Override
     @Transactional(readOnly = true)
-    public CategoryAspectResponseServiceDTO getAspectById(Long aspectId) {
+    public CategoryAspectServiceResponseDTO getAspectById(Long aspectId) {
         CategoryAspect aspect = aspectRepository.findById(aspectId)
                 .orElseThrow(() -> new ResourceNotFoundException("Aspect not found with id " + aspectId));
         return mapToResponseDTO(aspect);
@@ -52,7 +52,7 @@ public class CategoryAspectServiceImpl implements CategoryAspectService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryAspectResponseServiceDTO> getAllAspectsByCategory(Long categoryId) {
+    public List<CategoryAspectServiceResponseDTO> getAllAspectsByCategory(Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + categoryId));
 
@@ -62,7 +62,7 @@ public class CategoryAspectServiceImpl implements CategoryAspectService {
     }
 
     @Override
-    public CategoryAspectResponseServiceDTO updateAspect(Long aspectId, CategoryAspectUpdateRequestDTO dto) {
+    public CategoryAspectServiceResponseDTO updateAspect(Long aspectId, CategoryAspectUpdateRequestDTO dto) {
         CategoryAspect aspect = aspectRepository.findById(aspectId)
                 .orElseThrow(() -> new ResourceNotFoundException("Aspect not found with id " + aspectId));
         aspect.setAspect(dto.getAspect());
@@ -78,8 +78,8 @@ public class CategoryAspectServiceImpl implements CategoryAspectService {
         aspectRepository.deleteById(aspectId);
     }
 
-    private CategoryAspectResponseServiceDTO mapToResponseDTO(CategoryAspect aspect) {
-        return CategoryAspectResponseServiceDTO.builder()
+    private CategoryAspectServiceResponseDTO mapToResponseDTO(CategoryAspect aspect) {
+        return CategoryAspectServiceResponseDTO.builder()
                 .id(aspect.getId())
                 .aspect(aspect.getAspect())
                 .build();

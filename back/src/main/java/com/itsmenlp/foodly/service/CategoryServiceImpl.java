@@ -3,9 +3,9 @@ package com.itsmenlp.foodly.service;
 import com.itsmenlp.foodly.entity.Category;
 import com.itsmenlp.foodly.exception.ResourceNotFoundException;
 import com.itsmenlp.foodly.repository.CategoryRepository;
-import com.itsmenlp.foodly.service.dto.CategoryAspectResponseServiceDTO;
+import com.itsmenlp.foodly.service.dto.CategoryAspectServiceResponseDTO;
 import com.itsmenlp.foodly.service.dto.CategoryCreateRequestDTO;
-import com.itsmenlp.foodly.service.dto.CategoryResponseServiceDTO;
+import com.itsmenlp.foodly.service.dto.CategoryServiceResponseDTO;
 import com.itsmenlp.foodly.service.dto.CategoryUpdateRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResponseServiceDTO createCategory(CategoryCreateRequestDTO dto) {
+    public CategoryServiceResponseDTO createCategory(CategoryCreateRequestDTO dto) {
         Category category = Category.builder()
                 .name(dto.getName())
                 .build();
@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public CategoryResponseServiceDTO getCategoryById(Long categoryId) {
+    public CategoryServiceResponseDTO getCategoryById(Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + categoryId));
         return mapToResponseDTO(category);
@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryResponseServiceDTO> getAllCategories() {
+    public List<CategoryServiceResponseDTO> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
         return categories.stream()
                 .map(this::mapToResponseDTO)
@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResponseServiceDTO updateCategory(Long categoryId, CategoryUpdateRequestDTO dto) {
+    public CategoryServiceResponseDTO updateCategory(Long categoryId, CategoryUpdateRequestDTO dto) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + categoryId));
         category.setName(dto.getName());
@@ -68,15 +68,15 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.deleteById(categoryId);
     }
 
-    private CategoryResponseServiceDTO mapToResponseDTO(Category category) {
-        List<CategoryAspectResponseServiceDTO> aspectDTOs = category.getAspects().stream()
-                .map(aspect -> CategoryAspectResponseServiceDTO.builder()
+    private CategoryServiceResponseDTO mapToResponseDTO(Category category) {
+        List<CategoryAspectServiceResponseDTO> aspectDTOs = category.getAspects().stream()
+                .map(aspect -> CategoryAspectServiceResponseDTO.builder()
                         .id(aspect.getId())
                         .aspect(aspect.getAspect())
                         .build())
                 .collect(Collectors.toList());
 
-        return CategoryResponseServiceDTO.builder()
+        return CategoryServiceResponseDTO.builder()
                 .categoryId(category.getCategoryId())
                 .name(category.getName())
                 .createdAt(category.getCreatedAt())
