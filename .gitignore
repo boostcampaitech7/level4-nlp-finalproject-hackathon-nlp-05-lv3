@@ -2,6 +2,7 @@
 models/final_outputs
 
 # demo
+.env
 back/env.sh
 
 # files
@@ -12,6 +13,5 @@ __pycache__
 # api file
 config_api_key.yaml
 
-.env
-
+# macOS
 .DS_Store
