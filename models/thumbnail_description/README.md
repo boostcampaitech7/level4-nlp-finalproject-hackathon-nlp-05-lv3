@@ -16,7 +16,7 @@
 2. **후처리 (Post_processing)**  
    - HyperCLOVA HCX-003 모델을 활용하여 번역 및 Few-shot 방식 등을 통해 설명의 품질을 높입니다.
 3. **파인튜닝 (Finetuning)**  
-   - GPT-4o로 생성한 학습 데이터로 Janus-Pro를 파인튜닝하여 정교한 설명 성능에 도전합니다. (TBD)
+   - GPT-4o 생성과 수동검수로 구성한 데이터셋으로 Janus-Pro를 파인튜닝하여 정교한 설명 성능에 도전합니다. 
 4. **평가 (Evaluation)**  
    - OpenAI GPT-4o 모델을 활용해 점수를 매겨 설명의 품질을 측정할 수 있습니다.
 
@@ -47,22 +47,28 @@ thumbnail_description/
 │   ├── qwen2_5_prompt.txt
 │   ├── qwen2_prompt.txt
 │   └── unsloth_prompt.txt
-├── src
-│   ├── description
-│   │   ├── deepseekvl.py              # DeepSeek_VL을 활용한 썸네일 설명 생성
-│   │   ├── janus_pro.py                # Janus Pro을 활용한 썸네일 설명 생성
-│   │   ├── maal.py                     # MAAL을 활용한 썸네일 설명 생성
-│   │   ├── qwen2_5_vl.py               # Qwen2.5_VL을 활용한 썸네일 설명 생성
-│   │   ├── qwen2_vl.py                 # Qwen2_VL을 활용한 썸네일 설명 생성
-│   │   └── unsloth_qwen2_vl.py         # Unsloth_Qwen2_VL을 활용한 썸네일 설명 생성
-│   ├── post_processing                 
-│   │   ├── janus_pro_hcx_translation.py  # Janus Pro 모델의 HCX 기반 번역 후처리
-│   │   ├── janus_pro_papago_translation.py  # Papago 번역을 활용한 Janus Pro 후처리
-│   │   ├── janus_pro_pp_hcx.py         # Janus Pro 모델의 PP-HCX 기반 후처리
-│   │   └── qwen2_5_pp_hcx.py           # Qwen2.5 모델의 PP-HCX 기반 후처리
-│   ├── evaluation                      
-│   │   ├── gpt_eval.py                 # GPT 기반 평가셋 썸네일 설명 평가
-│   │   └── gpt_eval_323.py             # GPT 기반 전체 데이터 셋 썸네일 설명 평가
+│   src
+│   ├── description_pipeline               # 설명 생성 파이프라인
+│   │   ├── inference_model                # 모델 추론 코드
+│   │   │   ├── deepseekvl.py              # DeepSeek_VL을 활용한 썸네일 설명 생성
+│   │   │   ├── finetuned_janus_pro.py     # 직접 파인튜닝한 Janus Pro을 활용한 썸네일 설명 생성
+│   │   │   ├── janus_pro.py               # Janus Pro을 활용한 썸네일 설명 생성
+│   │   │   ├── maal.py                    # MAAL을 활용한 썸네일 설명 생성
+│   │   │   ├── qwen2_5_vl.py              # Qwen2.5_VL을 활용한 썸네일 설명 생성
+│   │   │   ├── qwen2_vl.py                # Qwen2_VL을 활용한 썸네일 설명 생성
+│   │   │   └── unsloth_qwen2_vl.py        # Unsloth_Qwen2_VL을 활용한 썸네일 설명 생성
+│   │   ├── post_processing                # 후처리 관련 코드
+│   │   │   ├── janus_pro_hcx_translation.py    # HCX 번역을 활용한 Janus Pro 후처리 
+│   │   │   ├── janus_pro_papago_translation.py # Papago 번역을 활용한 Janus Pro 후처리
+│   │   │   ├── janus_pro_pp_hcx.py             # Janus Pro 모델의 PP-HCX 기반 후처리
+│   │   │   └── qwen2_5_pp_hcx.py               # Qwen2.5 모델의 PP-HCX 기반 후처리
+│   │   ├── evaluation                      # 평가 관련 코드
+│   │   │   ├── gpt_eval_323.py             # GPT 기반 평가셋 썸네일 설명 평가
+│   │   │   └── gpt_eval.py                 # GPT 기반 전체 데이터 셋 썸네일 설명 평가
+├── sft_pipeline                            # SFT(지도 학습 미세 조정) 관련 코드
+│   ├── detailed_feature_description.py     # 1327개 대표 이미지 GPT기반 실버라벨 추출 코드
+│   └── janus_pro_7b_finetuning.py          # 골드라벨(실버라벨 + 검수)활용 Janus Pro 파인튜닝
+
 ├── utils
 │   ├── __init__.py
 │   └── common_utils.py                 # 공통 유틸리티 함수 정의

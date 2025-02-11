@@ -16,32 +16,31 @@ paths:
 
   # 사용될 CSV 파일 경로들
   cleaned_text_contents: "cleaned_text_contents.csv"
-  deepseekvl_eval: "deepseekvl_eval.csv"
-  internVL_eval: "internVL_eval.csv"
-  janus_pro_eval: "janus_pro_eval.csv"
-  maai_pro_eval: "maai_pro_eval.csv"
-  unsloth_qwen2_eval: "unsloth_qwen2_eval.csv"
-  qwen2_eval: "qwen2_eval.csv"
-  qwen2.5_eval: "qwen2.5_eval.csv"
-  qwen2_5_eval: "qwen2.5_eval.csv"
-  qwen2_5+janus_eval: "qwen2_5+janus_eval.csv"
-  qwen2_5+janus_323_eval: "qwen2_5+janus_323_eval.csv"
   Foodly_323_product_information: "Foodly_323_product_information.csv"
+  thumbnail_1347_gpt_human_labeling_train: "thumbnail_1347_gpt_human_labeling_train.csv"
+
 
 pipeline:
-  deepseekvl: false
-  janus_pro: true
-  maal: false
-  qwen2_vl: false
-  qwen2_5_vl: false
-  unsloth_qwen2_vl: false
+  sft_pipeline:
+    detailed_feature_description: false
+    janus_pro_7b_finetuning: false
 
-post_processing:
-  janus_pro_papago: true
-  janus_pro_hcx_translation: true
-  janus_pro_pp_hcx: true
-  qwen2_5_pp_hcx: false
+  description_pipeline:
+    inference_model:
+      deepseekvl: false
+      finetuned_janus_pro : false
+      janus_pro: true
+      maal: false
+      qwen2_vl: false
+      qwen2_5_vl: false
+      unsloth_qwen2_vl: false
 
-evaluation:
-  gpt_eval: false
-  gpt_eval_323: true
+    post_processing:
+      janus_pro_papago: false
+      janus_pro_hcx_translation: true
+      janus_pro_pp_hcx: true
+      qwen2_5_pp_hcx: false
+
+    evaluation:
+      gpt_eval: false
+      gpt_eval_323: true

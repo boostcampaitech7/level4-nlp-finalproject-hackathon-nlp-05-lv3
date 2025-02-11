@@ -2,87 +2,121 @@ import argparse
 import yaml
 import logging
 
-# 1) description 폴더 내 모델별 추론 함수
-from src.description.deepseekvl import run_inference_deepseekvl
-from src.description.janus_pro import run_inference_janus_pro
-from src.description.maal import run_inference_maal
-from src.description.qwen2_vl import run_inference_qwen2_vl
-from src.description.qwen2_5_vl import run_inference_qwen2_5_vl
-from src.description.unsloth_qwen2_vl import run_inference_unsloth_qwen2_vl
+# SFT 파이프라인 모듈 import
+from src.sft_pipeline import (
+    detailed_feature_description,
+    janus_pro_7b_finetuning
+)
 
-# 2) post_processing 폴더 내 후처리 스크립트
-from src.post_processing.janus_pro_papago_translation import run_inference_janus_pro_papago_translation
-from src.post_processing.janus_pro_hcx_translation import run_inference_janus_pro_hcx_translation
-from src.post_processing.janus_pro_pp_hcx import run_inference_janus_pro_pp_hcx
-from src.post_processing.qwen2_5_pp_hcx import run_inference_qwen2_5_pp_hcx
-
-# 3) evaluation 폴더 내 GPT eval 스크립트
-from src.evaluation.gpt_eval import run_gpt_eval
-from src.evaluation.gpt_eval_323 import run_gpt_eval_323
+# Description 파이프라인 내 모델 추론 모듈 import
+from src.description_pipeline.inference_model import (
+    deepseekvl,
+    janus_pro,
+    maal,
+    qwen2_vl,
+    qwen2_5_vl,
+    unsloth_qwen2_vl,
+    finetuned_janus_pro
+)
+# Description 파이프라인 내 후처리 모듈 import
+from src.description_pipeline.post_processing import (
+    janus_pro_papago_translation,
+    janus_pro_hcx_translation,
+    janus_pro_pp_hcx,
+    qwen2_5_pp_hcx
+)
+# Description 파이프라인 내 평가 모듈 import
+from src.description_pipeline.evaluation import (
+    gpt_eval,
+    gpt_eval_323
+)
 
 def setup_logger():
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(name)s => %(message)s"
+        format="%(asctime)s [%(levelname)s] %(name)s - %(message)s"
     )
 
+def run_sft_pipeline(config):
+    logging.info("SFT 파이프라인 시작")
+    # config.yaml에서 sft 파이프라인 관련 설정은 pipeline > sft_pipeline 에 위치함
+    sft_config = config.get("pipeline", {}).get("sft_pipeline", {})
+    if sft_config.get("detailed_feature_description", False):
+        detailed_feature_description.run_detailed_feature_description(config)
+    if sft_config.get("janus_pro_7b_finetuning", False):
+        janus_pro_7b_finetuning.run_janus_pro_7b_finetuning(config)
+    logging.info("SFT 파이프라인 완료.")
+
+def run_description_pipeline(config):
+    logging.info("Description 파이프라인 시작")
+    # config.yaml에서 description 관련 설정은 pipeline > description_pipeline 에 위치함
+    desc_config = config.get("pipeline", {}).get("description_pipeline", {})
+
+    # 1) 모델별 Inference 단계
+    inference_cfg = desc_config.get("inference_model", {})
+    if inference_cfg.get("deepseekvl", False):
+        deepseekvl.run_inference(config)
+    if inference_cfg.get("janus_pro", False):
+        janus_pro.run_inference(config)
+    if inference_cfg.get("maal", False):
+        maal.run_inference(config)
+    if inference_cfg.get("qwen2_vl", False):
+        qwen2_vl.run_inference(config)
+    if inference_cfg.get("qwen2_5_vl", False):
+        qwen2_5_vl.run_inference(config)
+    if inference_cfg.get("unsloth_qwen2_vl", False):
+        unsloth_qwen2_vl.run_inference(config)
+    if inference_cfg.get("finetuned_janus_pro", False):
+        finetuned_janus_pro.run_inference(config)
+
+    # 2) 후처리 단계
+    postproc_cfg = desc_config.get("post_processing", {})
+    if postproc_cfg.get("janus_pro_papago_translation", False):
+        janus_pro_papago_translation.run_post_processing(config)
+    if postproc_cfg.get("janus_pro_hcx_translation", False):
+        janus_pro_hcx_translation.run_post_processing(config)
+    if postproc_cfg.get("janus_pro_pp_hcx", False):
+        janus_pro_pp_hcx.run_post_processing(config)
+    if postproc_cfg.get("qwen2_5_pp_hcx", False):
+        qwen2_5_pp_hcx.run_post_processing(config)
+
+    # 3) Evaluation 단계
+    eval_cfg = desc_config.get("evaluation", {})
+    if eval_cfg.get("gpt_eval", False):
+        gpt_eval.run_evaluation(config)
+    if eval_cfg.get("gpt_eval_323", False):
+        gpt_eval_323.run_evaluation(config)
+
+    logging.info("Description 파이프라인 완료.")
+
 def main():
-    parser = argparse.ArgumentParser(description="Pipeline for product text summarization & inference")
+    setup_logger()
+    parser = argparse.ArgumentParser(description="파이프라인 실행")
     parser.add_argument(
-        "--config", "-c",
+        "--config",
+        "-c",
         default="config/config.yaml",
-        help="Path to the configuration YAML file (default: config/config.yaml)"
+        help="설정 파일 경로 (기본값: config/config.yaml)"
+    )
+    parser.add_argument(
+        "--pipeline",
+        "-p",
+        choices=["sft", "description", "all"],
+        default="all",
+        help="실행할 파이프라인 선택 (sft, description, all)"
     )
     args = parser.parse_args()
 
-    setup_logger()
-
-    # config.yaml 로드
+    # 설정 파일 로드
     with open(args.config, "r", encoding="utf-8") as f:
         config = yaml.safe_load(f)
 
-    pipeline_cfg = config.get("pipeline", {})
-    postproc_cfg = config.get("post_processing", {})
-    eval_cfg = config.get("evaluation", {})  # evaluation 섹션
+    # 선택한 파이프라인 실행
+    if args.pipeline in ["sft", "all"]:
+        run_sft_pipeline(config)
 
-    # 1) 모델별 Inference 파이프라인
-    if pipeline_cfg.get("deepseekvl", False):
-        run_inference_deepseekvl()
-
-    if pipeline_cfg.get("janus_pro", False):
-        run_inference_janus_pro()
-
-    if pipeline_cfg.get("maal", False):
-        run_inference_maal()
-
-    if pipeline_cfg.get("qwen2_vl", False):
-        run_inference_qwen2_vl()
-
-    if pipeline_cfg.get("qwen2_5_vl", False):
-        run_inference_qwen2_5_vl()
-
-    if pipeline_cfg.get("unsloth_qwen2_vl", False):
-        run_inference_unsloth_qwen2_vl()
-
-    # 2) 후처리 단계
-    if postproc_cfg.get("janus_pro_papago", False):
-        run_inference_janus_pro_papago_translation()
-
-    if postproc_cfg.get("janus_pro_hcx_translation", False):
-        run_inference_janus_pro_hcx_translation()
-
-    if postproc_cfg.get("janus_pro_pp_hcx", False):
-        run_inference_janus_pro_pp_hcx()
-
-    if postproc_cfg.get("qwen2_5_pp_hcx", False):
-        run_inference_qwen2_5_pp_hcx()
-
-    # 3) evaluation 단계
-    if eval_cfg.get("gpt_eval", False):
-        run_gpt_eval()
-
-    if eval_cfg.get("gpt_eval_323", False):
-        run_gpt_eval_323()
+    if args.pipeline in ["description", "all"]:
+        run_description_pipeline(config)
 
     logging.info("All pipeline tasks completed.")
 
