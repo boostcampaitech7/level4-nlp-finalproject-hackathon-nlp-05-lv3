@@ -18,7 +18,6 @@
 .
 ├── README.md
 ├── main.py                        # 파이프라인 실행 코드
-├── environment.yml                # Conda 환경 설정 파일
 ├── config
 │   └── config.yaml                # 설정(API Key, 파일 경로, 파이프라인 실행 여부 등)
 ├── data
@@ -52,7 +51,7 @@
 - Python 3.10.15 버전 권장
 - 의존성 패키지 설치
 ```bash
-conda env create -f environment.yml
+pip install -r requirements.txt
 ```
 
 ### 2) 설정
