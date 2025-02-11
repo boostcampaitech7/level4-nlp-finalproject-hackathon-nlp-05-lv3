@@ -1,0 +1,47 @@
+hcx_api:
+  host: "https://clovastudio.stream.ntruss.com"
+  api_key: "YOUR_API_KEY"
+  request_id: "YOUR_REQUEST_ID"
+
+papago_api:
+  client_id: "YOUR_CLIENT_ID"
+  client_secret: "YOUR_CLIENT_SECRET"
+
+openai:
+  api_key: "OPENAI_API_KEY"
+
+paths:
+  data_dir: "./data"
+  prompt_dir: "./prompt"
+
+  # 사용될 CSV 파일 경로들
+  cleaned_text_contents: "cleaned_text_contents.csv"
+  deepseekvl_eval: "deepseekvl_eval.csv"
+  internVL_eval: "internVL_eval.csv"
+  janus_pro_eval: "janus_pro_eval.csv"
+  maai_pro_eval: "maai_pro_eval.csv"
+  unsloth_qwen2_eval: "unsloth_qwen2_eval.csv"
+  qwen2_eval: "qwen2_eval.csv"
+  qwen2.5_eval: "qwen2.5_eval.csv"
+  qwen2_5_eval: "qwen2.5_eval.csv"
+  qwen2_5+janus_eval: "qwen2_5+janus_eval.csv"
+  qwen2_5+janus_323_eval: "qwen2_5+janus_323_eval.csv"
+  Foodly_323_product_information: "Foodly_323_product_information.csv"
+
+pipeline:
+  deepseekvl: false
+  janus_pro: true
+  maal: false
+  qwen2_vl: false
+  qwen2_5_vl: false
+  unsloth_qwen2_vl: false
+
+post_processing:
+  janus_pro_papago: true
+  janus_pro_hcx_translation: true
+  janus_pro_pp_hcx: true
+  qwen2_5_pp_hcx: false
+
+evaluation:
+  gpt_eval: false
+  gpt_eval_323: true

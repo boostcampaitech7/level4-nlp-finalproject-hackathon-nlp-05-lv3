@@ -4,6 +4,7 @@ models/product_summarization/config/config_v1.yaml
 models/product_summarization/data/*
 
 # demo
+.env
 back/env.sh
 
 # files
@@ -14,5 +15,5 @@ __pycache__
 # api file
 config_api_key.yaml
 
-.env
+# macOS
 .DS_Store
