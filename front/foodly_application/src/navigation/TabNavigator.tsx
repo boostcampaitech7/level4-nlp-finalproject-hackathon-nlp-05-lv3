@@ -56,12 +56,23 @@ export type RootStackParamList = {
       rating: number;
       thumbnailCaption: string;
       thumbnailUrl: string;
+    },
+    ImageDetail: {
+      thumbnailUrl: string;
+      thumbnailCaption: string;
+      thumbnailCaptionShort: string;
+      from: string | undefined;
     }
   };
   Payment: undefined;
   Cart: undefined;
   Mypage: undefined;
-  ImageDetail: undefined;
+  ImageDetail: {
+    thumbnailUrl: string;
+    thumbnailCaption: string;
+    thumbnailCaptionShort: string;
+    from: string | undefined;
+  };
 };
 
 const CategoryStack = () => {
@@ -185,6 +196,26 @@ const ProductStack = () => {
           ),
         })}
       />
+      <Stack.Screen
+        name="ImageDetail"
+        component={ImageDetailScreen}
+        options={({ navigation }) => ({
+          title: '이미지 상세',
+          headerShown: true,
+          headerStyle: { 
+            backgroundColor: '#d3e3e9',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 24,
+          },
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 16 }}>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </TouchableOpacity>
+          ),
+          })}
+        />
     </Stack.Navigator>
   );
 }
@@ -228,6 +259,26 @@ const CartStack = () => {
           ),
         })}
       />
+      <Stack.Screen
+        name="ImageDetail"
+        component={ImageDetailScreen}
+        options={({ navigation }) => ({
+          title: '이미지 상세',
+          headerShown: true,
+          headerStyle: { 
+            backgroundColor: '#d3e3e9',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 24,
+          },
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 16 }}>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </TouchableOpacity>
+          ),
+          })}
+        />
     </Stack.Navigator>
   );
 }

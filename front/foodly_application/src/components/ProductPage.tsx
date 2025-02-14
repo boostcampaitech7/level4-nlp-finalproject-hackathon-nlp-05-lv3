@@ -21,6 +21,7 @@ interface Product {
   price: number;
   rating: number;
   thumbnailCaption: string;
+  thumbnailCaptionShort: string;
   thumbnailUrl: string;
 }
 
@@ -107,6 +108,8 @@ const ProductPage: React.FC<PageProps> = ({ pageData, screenLength }) => {
                   navigation.navigate('ImageDetail', {
                     thumbnailUrl: product.thumbnailUrl.replace(/\?type=m510$/, ''),
                     thumbnailCaption: product.thumbnailCaption,
+                    thumbnailCaptionShort: product.thumbnailCaptionShort,
+                    from: undefined,
                   })
                 }
               >
@@ -115,7 +118,7 @@ const ProductPage: React.FC<PageProps> = ({ pageData, screenLength }) => {
                     uri: product.thumbnailUrl.replace(/\?type=m510$/, ''),
                   }}
                   style={productStyles.productImage}
-                  accessibilityLabel={product.thumbnailCaption || '상품 이미지'}
+                  accessibilityLabel={product.thumbnailCaptionShort || '상품 이미지'}
                 />
               </TouchableOpacity>
             ) : (

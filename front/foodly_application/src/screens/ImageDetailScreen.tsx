@@ -1,23 +1,37 @@
 // screens/ImageDetailScreen.tsx
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/TabNavigator';
 
 type ImageDetailScreenProps = StackScreenProps<RootStackParamList, 'ImageDetail'>;
 
-const ImageDetailScreen: React.FC<ImageDetailScreenProps> = ({ route }) => {
-  const { thumbnailUrl, thumbnailCaption } = route.params;
+const ImageDetailScreen: React.FC<ImageDetailScreenProps> = ({ route, navigation }) => {
+  const { thumbnailUrl, thumbnailCaption, thumbnailCaptionShort, from } = route.params;
 
+  const caption = () => {
+    if (from === 'ProductDetail') {
+      console.log("from ProductDetail", thumbnailCaption);
+      return thumbnailCaption;
+    }
+    console.log("not from ProductDetail", thumbnailCaptionShort);
+    return thumbnailCaptionShort;
+  }
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: from === 'ProductDetail' ? '포장 설명' : '제품 이미지 소개',
+    });
+  }, [navigation, from]);
+  
   return (
     <SafeAreaView style={styles.container}>
       <Image
         source={{ uri: thumbnailUrl }}
         style={styles.image}
-        // accessibilityLabel를 통해 스크린리더(VoiceOver/토크백 등)에서 읽히는 텍스트로 활용
-        accessibilityLabel={thumbnailCaption || '상품 이미지'}
+        accessibilityLabel={caption() || '상품 이미지'}
       />
-      <Text style={styles.caption}>{thumbnailCaption}</Text>
+      <Text style={styles.caption}>{caption()}</Text>
     </SafeAreaView>
   );
 };
