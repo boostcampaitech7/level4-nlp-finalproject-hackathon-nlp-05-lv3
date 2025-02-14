@@ -1,0 +1,4 @@
+Provide a detailed description of the packaging container (shape, material, design, color, and contents)
+that ensures the caption is of high quality and accessible for visually impaired individuals.
+Do not mention screen readers in the description under any circumstances.
+Write an image evaluation based solely on facts. Do not mention any opinions or evaluations about the design.

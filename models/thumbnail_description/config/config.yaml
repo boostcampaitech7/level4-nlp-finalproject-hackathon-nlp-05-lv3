@@ -1,0 +1,46 @@
+hcx_api:
+  host: "https://clovastudio.stream.ntruss.com"
+  api_key: "YOUR_API_KEY"
+  request_id: "YOUR_REQUEST_ID"
+
+papago_api:
+  client_id: "YOUR_CLIENT_ID"
+  client_secret: "YOUR_CLIENT_SECRET"
+
+openai:
+  api_key: "OPENAI_API_KEY"
+
+paths:
+  data_dir: "./data"
+  prompt_dir: "./prompt"
+
+  # 사용될 CSV 파일 경로들
+  cleaned_text_contents: "cleaned_text_contents.csv"
+  Foodly_323_product_information: "Foodly_323_product_information.csv"
+  thumbnail_1347_gpt_human_labeling_train: "thumbnail_1347_gpt_human_labeling_train.csv"
+
+
+pipeline:
+  sft_pipeline:
+    detailed_feature_description: false
+    janus_pro_7b_finetuning: false
+
+  description_pipeline:
+    inference_model:
+      deepseekvl: false
+      finetuned_janus_pro : false
+      janus_pro: true
+      maal: false
+      qwen2_vl: false
+      qwen2_5_vl: false
+      unsloth_qwen2_vl: false
+
+    post_processing:
+      janus_pro_papago: false
+      janus_pro_hcx_translation: true
+      janus_pro_pp_hcx: true
+      qwen2_5_pp_hcx: false
+
+    evaluation:
+      gpt_eval: false
+      gpt_eval_323: true

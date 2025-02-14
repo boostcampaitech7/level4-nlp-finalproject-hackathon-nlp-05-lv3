@@ -1,0 +1,8 @@
+# YOLO Training Configuration File
+
+train: /data/ephemeral/home/models/nutrition_ingredients_information/data/YOLO/train
+val: 
+test:  /data/ephemeral/home/models/nutrition_ingredients_information/data/YOLO/inference
+
+nc: 2
+names: ['nutrition','ingredient']
