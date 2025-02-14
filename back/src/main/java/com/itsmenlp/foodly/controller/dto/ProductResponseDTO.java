@@ -15,6 +15,7 @@ public class ProductResponseDTO {
     private String name;
     private String thumbnailUrl;
     private String thumbnailCaption;
+    private String thumbnailCaptionShort;
     private String mall;
     private Integer price;
     private Integer stock;
