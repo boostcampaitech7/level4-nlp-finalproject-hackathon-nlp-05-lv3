@@ -13,12 +13,16 @@
 
 ### 🖥️ 프로젝트 개요
 
+<div align="center">
+<video src="./doc/image/demo.mp4" width="200" autoplay loop muted></video>
+</div>
+
 | 특징　　　　| 설명 |
 |:------:| --- |
 | 주제 | 시각장애인을 위한 온라인 식료품 쇼핑 지원 서비스입니다. |
 | 문제 정의 | 온라인 쇼핑은 대부분의 사람들에게 편리한 과정이지만, 시각장애인에게는 화면의 모든 내용을 음성으로 듣고 정보를 찾는 데 많은 시간이 필요합니다. 특히, 상품의 성분/영양 정보와 알레르기 정보 등 이미지로 제공되는 정보를 확인하는 과정에서 어려움을 겪고 있습니다. |
 | 기능 | - 상품 대표 이미지(썸네일)를 텍스트로 변환하여 전달 <br> - 상품의 크기 정보, 보관법, 성분/영양 정보 등의 상세 정보를 직관적인 텍스트로 제공 <br> - 리뷰 긍·부정 의견 요약, 키워드 기반 상품 추천 시스템 개발 |
-| 결과물 | [WrapUp Report](), [Presentation Material]() |
+| 결과물 | [WrapUp Report](https://github.com/boostcampaitech7/level4-nlp-finalproject-hackathon-nlp-05-lv3/blob/main/doc/네이버클라우드_NLP_팀%20리포트(05조)%20(1).pdf), [Presentation Material](https://github.com/boostcampaitech7/level4-nlp-finalproject-hackathon-nlp-05-lv3/blob/main/doc/NLP_5조_네이버%20클라우드_푸드리%20(1).pdf) |
 
 <br>
 
