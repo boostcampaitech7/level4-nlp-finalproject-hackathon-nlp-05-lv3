@@ -11,6 +11,8 @@
 
 ## 🏃 프로젝트 설명
 
+![Image](https://github.com/user-attachments/assets/147ffe42-2c14-4e12-88b4-c3406c5fbb17)
+
 ### 🖥️ 프로젝트 개요
 
 <div align="center">
