@@ -70,11 +70,111 @@
 프로젝트 폴더 구조는 아래와 같습니다.
 
 ```
-TBD
+.
+|-- README.md
+|-- back
+|   |-- build.gradle         # 백엔드 빌드 설정
+|   |-- docker-compose.yml   # Docker 설정 파일
+|   |-- gradle               # Gradle 설정 및 wrapper 파일
+|   |-- gradlew              # Gradle 실행 스크립트 (Linux/Mac)
+|   |-- gradlew.bat          # Gradle 실행 스크립트 (Windows)
+|   |-- settings.gradle      # 모듈 설정 파일
+|   `-- src                  # 백엔드 소스 코드
+|-- doc
+|   |-- image                # 프로젝트 관련 이미지 자료 (다이어그램, 스크린샷 등)
+|   |-- ...pdf               # 프로젝트 발표 자료, 보고서 문서들
+|   `-- 기타 문서 파일들
+|-- eda
+|   |-- README.md            # EDA 모듈 개요 및 실행 가이드
+|   |-- eda1_visualize.ipynb # 데이터 시각화 Notebook (EDA 단계1)
+|   |-- eda2_visualize.ipynb # 데이터 시각화 Notebook (EDA 단계2)
+|   `-- product_crawling.py  # 제품 데이터 크롤링 스크립트
+|-- front
+|   |-- chrome_extension     # 크롬 확장 프로그램 관련 프론트엔드 코드
+|   `-- foodly_application   # Foodly 애플리케이션 (모바일/웹) 관련 코드, Node.js 기반
+`-- models
+    |-- final_outputs                        # 모델 실행 후 생성된 최종 데이터
+    |-- nutrition_ingredients_information    # 성분/영양 정보
+    |   |-- README.md                        # 모듈 개요 및 실행 가이드
+    |   `-- main.py, prompt, src 등
+    |-- product_summarization                # 상품 상세정보 요약
+    |   |-- README.md                        # 모듈 개요 및 실행 가이드
+    |   |-- main.py, prompt, src 등
+    |-- review                               # 리뷰 요약 및 추천 키워드별 상품 재정렬
+    |   |-- README.md                        # 모듈 개요 및 실행 가이드
+    |   |-- prompt, src, utils 등
+    |-- size_description                     # 상품 크기 정보 추출
+    |   |-- README.md                        # 모듈 개요 및 실행 가이드
+    |   |-- src, data, size_info.yaml 등
+    `-- thumbnail_description                # 썸네일 이미지 설명
+        |-- README.md                        # 모듈 개요 및 실행 가이드
+        |-- main.py, prompt, src, utils 등
+
 ```
 
 <br>
 
 ### 💾 프로젝트 설치 및 실행
+프로젝트는 모듈 별로 독립적인 실행 환경과 설치 방법이 존재합니다. 각 모듈의 상세 실행 방법은 해당 폴더 내의 README.md, environment.yml, config.yaml 등에서 확인할 수 있습니다. 아래는 각 모듈의 주요 실행 방법 안내입니다.
 
-TBD
+### back (백엔드)
+
+**설치:**  
+- Gradle을 통해 빌드합니다. (예: `./gradlew build`)
+- Docker 환경 사용 시, `docker-compose.yml`을 참고하여 Docker 이미지를 빌드 및 실행합니다.
+
+**실행:**  
+- 로컬에서는 `./gradlew bootRun` 명령어로 실행합니다.
+- Docker 사용 시, `docker-compose up`으로 컨테이너를 구동합니다.
+
+**참고:** 자세한 내용은 `back/README.md`를 확인하세요.
+
+### eda (데이터 탐색/분석)
+
+**설치:**  
+- Python 가상환경(예: Conda)을 구성하고, 필요 패키지를 설치합니다. (`eda/environment.yml` 파일 참고)
+
+**실행:**  
+- Jupyter Notebook을 실행하여 `eda1_visualize.ipynb`와 `eda2_visualize.ipynb` 파일을 확인합니다.
+- `python product_crawling.py` 명령어로 크롤링 스크립트를 실행할 수 있습니다.
+
+**참고:** 상세 가이드는 `eda/README.md`를 참고하세요.
+
+### front (프론트엔드)
+
+#### chrome_extension
+
+**설치 및 실행:**  
+- 파일 수정 후, 크롬 브라우저의 '압축 해제된 확장 프로그램'으로 로드합니다.  
+- 자세한 내용은 `front/chrome_extension/README.md`를 확인하세요.
+
+#### foodly_application
+
+**설치:**  
+- Node.js 기반으로, `npm install` 또는 `yarn` 명령어로 의존성을 설치합니다.
+
+**실행:**  
+- `npm start` 또는 `yarn start` 명령어로 개발 서버를 실행합니다.
+
+**참고:** 상세 내용은 `front/foodly_application/README.md`에서 확인하세요.
+
+### models (모델 관련 모듈)
+
+모델 관련 모듈은 총 5개가 있으며, 각 모델 모듈은 독립적인 Python 실행 환경을 요구합니다.
+
+- `nutrition_ingredients_information/` (성분/영양 정보)
+- `product_summarization/` (상품 상세정보 요약)
+- `review/` (리뷰 요약 및 추천 키워드별 상품 재정렬)
+- `size_description/` (상품 크기 정보)
+- `thumbnail_description/` (썸네일 이미지)
+
+**설치 및 실행:**  
+- `environment.yml` 파일을 활용해 Conda 환경을 구성합니다.
+
+**실행:**  
+- `python main.py` 명령어로 관련 스크립트를 실행합니다.
+
+**참고:** 구체적인 내용은 각 모듈 별 `README.md`를 확인하세요.
+
+
+> **주의:** 각 모듈의 구체적인 설치 및 실행 방법은 해당 모듈 내 README나 환경 설정 파일을 반드시 참고하시기 바랍니다.
