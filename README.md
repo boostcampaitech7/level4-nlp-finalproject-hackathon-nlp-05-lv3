@@ -11,12 +11,10 @@
 
 ## 🏃 프로젝트 설명
 
-![Image](https://github.com/user-attachments/assets/147ffe42-2c14-4e12-88b4-c3406c5fbb17)
-
 ### 🖥️ 프로젝트 개요
 
 <div align="center">
-<video src="./doc/image/demo.mp4" width="200" autoplay loop muted></video>
+<video src="https://github.com/user-attachments/assets/f3d49d22-9435-4986-b9e4-7ae6aaaec744" width="200" autoplay loop muted></video>
 </div>
 
 | 특징　　　　| 설명 |
