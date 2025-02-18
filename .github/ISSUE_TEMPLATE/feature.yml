@@ -1,0 +1,39 @@
+name: "🚀 Feature"
+description: "새로운 기능을 제안 또는 요청"
+labels: ["feature", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📌 기능 요청
+        - 새로운 기능을 제안하는 경우 아래 내용을 작성해주세요.
+
+  - type: textarea
+    attributes:
+      label: "📄 설명"
+      description: "기능에 대한 설명을 작성해 주세요."
+      placeholder: "설명에는 기능의 필요성, 목적, 예상 효과 등을 작성해주세요."
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "✅ 작업"
+      description: "구체적인 작업을 작성해주세요."
+      placeholder: |
+        - [ ] 구체적인 작업 내용
+      value: "- [ ] "
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "📎 참고"
+      description: "참고할 자료가 있다면 링크 또는 자료를 첨부해주세요."
+      placeholder: "https://example.com"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        이상입니다.
