@@ -61,7 +61,7 @@
 
 - 프로젝트 기간은 2025-01-10 ~ 2025-02-10입니다.
 
-<img width="960" alt="image" src="https://github.com/user-attachments/assets/f75932a2-0cac-4fd2-8eb9-79d18849b49e" />
+![Foodly 타임라인](doc/image/foodly_timeline.png)
 
 <br>
 
