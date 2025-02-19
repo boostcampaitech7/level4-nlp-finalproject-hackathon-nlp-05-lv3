@@ -21,6 +21,13 @@
    - OpenAI GPT-4o 모델을 활용해 점수를 매겨 설명의 품질을 측정할 수 있습니다.
 
 > `config.yaml`에서 **API Key, 파일 경로**, 실행 여부 등을 관리하여 파이프라인을 유연하게 제어합니다.
+---
+## 파이프라인
+<img width="980" alt="스크린샷 2025-02-19 오후 12 05 04" src="https://github.com/user-attachments/assets/cfee4922-7b95-4f98-952c-c1eaf032818a" />
+
+## 성능 고도화 과정
+<img width="980" alt="스크린샷 2025-02-19 오후 12 05 40" src="https://github.com/user-attachments/assets/6bd1db39-0135-420b-969d-0cf1e3e287ad" />
+
 
 ---
 
