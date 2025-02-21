@@ -1,0 +1,43 @@
+api:
+  # HCX API 호출에 필요한 정보
+  host: "https://clovastudio.stream.ntruss.com"
+  api_key: "YOUR_API_KEY"
+  request_id: "YOUR_REQUEST_ID"
+
+finetuning:
+  task_id: "4cecaj1w"          # 이미 생성된 파인튜닝 Task ID
+  uri: "/tuning/v2/tasks"
+  new_task_name: "v3_epoch8_lr5"
+  model: "HCX-003"
+  tuning_type: "PEFT"
+  task_type: "GENERATION"
+  train_epochs: 8
+  learning_rate: "1e-5f"
+  dataset_bucket: "itsmenlp"
+  dataset_file_path: "YOUR_FILE_PATH"
+  dataset_access_key: "YOUR_ACCESS_KEY"
+  dataset_secret_key: "YOUR_SECRET_KEY"
+
+openai:
+  # openai API에 필요한 정보
+  api_key: "OPENAI_API_KEY"
+
+paths:
+  data_dir: "./data"
+  prompt_dir: "./prompt"
+
+  # 사용될 CSV 파일 경로들
+  total_text_csv: "total_text.csv"
+  total_csv: "total.csv"
+  fewshot_csv: "fewshot_5.csv"
+  finetuning_candidates_csv: "finetuning_candidates.csv"
+  finetuning_csv: "finetuning_v1.csv"
+  output_fewshot_csv: "output_fewshot.csv"
+  output_finetuning_csv: "output_finetuning.csv"
+
+pipeline:
+  text_crawling: false                # 크롤링 단계 실행 여부
+  fewshot_inference: true             # 퓨샷 인퍼런스 실행 여부
+  finetuning_data_generation: false   # 파인튜닝용 데이터 생성 단계 실행 여부
+  create_finetuning_task: false       # 파인튜닝 Task 생성 단계 실행 여부
+  finetuning_inference: true          # 파인튜닝 모델 인퍼런스 실행 여부

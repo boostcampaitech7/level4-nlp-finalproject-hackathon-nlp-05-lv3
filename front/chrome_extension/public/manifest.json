@@ -1,0 +1,29 @@
+{
+  "name": "AI Shopper",
+  "version": "0.1",
+  "description": "나야, 자, 연어 화이팅!",
+  "manifest_version": 3,
+
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "URL/*"
+  ],
+  "background": {
+    "service_worker": "extension/background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://smartstore.naver.com/*",
+                  "*://shopping.naver.com/*"],
+      "js": ["extension/contentScript.js"]
+    }
+  ],
+
+  "action": {
+    "default_popup": "index.html"
+  }
+}

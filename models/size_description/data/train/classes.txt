@@ -1,0 +1,4 @@
+product
+compare_pet
+compare_can
+compare_cup
