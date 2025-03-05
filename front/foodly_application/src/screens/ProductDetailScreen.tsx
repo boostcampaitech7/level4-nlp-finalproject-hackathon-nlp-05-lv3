@@ -119,8 +119,7 @@ const animatedTextContainerWidth = (scrollY: Animated.Value) =>
     extrapolate: 'clamp',
   });
 
-const ProductDetailScreen: React.FC = () => {
-  const route = useRoute<RouteProps>();
+const ProductDetailScreen: React.FC = ({ route }) => {
   const navigation = useNavigation();
   const { product } = route.params;
   const [isScrolled, setIsScrolled] = useState(false);
@@ -134,7 +133,6 @@ const ProductDetailScreen: React.FC = () => {
   const [description, setDescription] = useState<DescriptionResponseDTO | null>(null);
 
   useEffect(() => {
-    // 실제 API 경로에 맞춰 수정하세요
     axios
       .get<DescriptionResponseDTO>(`${Config.BASE_URL}/api/descriptions/${product?.productId}`)
       .then(res => {
@@ -294,6 +292,16 @@ const ProductDetailScreen: React.FC = () => {
 
   // id=8: 리뷰 요약 (높은 리뷰 요약 + 낮은 리뷰 요약)
   const renderItem8Content = () => {
+    if (!description?.reviewGoodTasteNum) {
+      return (
+        <View>
+          <Text style={localStyles.paragraph}>
+            리뷰 요약 정보는 현재 준비중입니다.
+          </Text>
+        </View>
+      )
+    }
+
     return (
       <View>
         {/* 높은 리뷰 요약 */}
@@ -366,6 +374,8 @@ const ProductDetailScreen: React.FC = () => {
             navigation.navigate('ImageDetail', {
               thumbnailUrl: product?.thumbnailUrl,
               thumbnailCaption: product?.thumbnailCaption,
+              thumbnailCaptionShort: product?.thumbnailCaptionShort,
+              from: 'ProductDetail',
             })
           }
         >
@@ -428,7 +438,7 @@ const ProductDetailScreen: React.FC = () => {
             <View style={productDetailStyles.priceContainer}>
               {!isScrolled && (
                 <Animated.Text style={productDetailStyles.beforePrice}>
-                  210,000원에서
+                  {(product?.price * 1.2).toLocaleString()}원에서
                 </Animated.Text>
               )}
               <Animated.Text style={productDetailStyles.price}>
@@ -445,7 +455,7 @@ const ProductDetailScreen: React.FC = () => {
                 { fontSize: animatedInfoFont(scrollY) },
               ]}
             >
-              4.7점 / 5점
+              {product.rating} / 5점
             </Animated.Text>
             <Animated.Text
               style={[

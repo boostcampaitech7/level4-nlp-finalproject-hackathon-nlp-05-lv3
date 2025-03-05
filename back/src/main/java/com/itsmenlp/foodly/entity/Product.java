@@ -31,6 +31,9 @@ public class Product {
     @Column(length=2000)
     private String thumbnailCaption;
 
+    @Column(length=2000)
+    private String thumbnailCaptionShort;
+
     @Column
     private String mall;
 

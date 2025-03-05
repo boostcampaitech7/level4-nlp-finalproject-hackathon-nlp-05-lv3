@@ -38,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
                 .name(dto.getName())
                 .thumbnailUrl(dto.getThumbnailUrl())
                 .thumbnailCaption(dto.getThumbnailCaption())
+                .thumbnailCaptionShort(dto.getThumbnailCaptionShort())
                 .mall(dto.getMall())
                 .price(dto.getPrice())
                 .stock(dto.getStock() != null ? dto.getStock() : 10)
@@ -88,6 +89,7 @@ public class ProductServiceImpl implements ProductService {
         product.setName(dto.getName());
         product.setThumbnailUrl(dto.getThumbnailUrl());
         product.setThumbnailCaption(dto.getThumbnailCaption());
+        product.setThumbnailCaptionShort(dto.getThumbnailCaptionShort());
         product.setMall(dto.getMall());
         product.setPrice(dto.getPrice());
         product.setStock(dto.getStock() != null ? dto.getStock() : product.getStock());
@@ -123,6 +125,7 @@ public class ProductServiceImpl implements ProductService {
                 .name(product.getName())
                 .thumbnailUrl(product.getThumbnailUrl())
                 .thumbnailCaption(product.getThumbnailCaption())
+                .thumbnailCaptionShort(product.getThumbnailCaptionShort())
                 .mall(product.getMall())
                 .price(product.getPrice())
                 .stock(product.getStock())

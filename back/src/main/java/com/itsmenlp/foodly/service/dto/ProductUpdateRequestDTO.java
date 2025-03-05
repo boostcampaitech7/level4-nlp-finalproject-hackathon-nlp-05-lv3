@@ -21,6 +21,7 @@ public class ProductUpdateRequestDTO {
 
     private String thumbnailUrl;
     private String thumbnailCaption;
+    private String thumbnailCaptionShort;
     private String mall;
 
     @Min(value = 0, message = "가격은 0 이상이어야 합니다.")
