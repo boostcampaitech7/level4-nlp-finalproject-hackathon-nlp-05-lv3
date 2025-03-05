@@ -18,7 +18,7 @@
 </div>
 
 | 특징　　　　| 설명 |
-|:------:| --- |
+|:-------:| --- |
 | 주제 | 시각장애인을 위한 온라인 식료품 쇼핑 지원 서비스입니다. |
 | 문제 정의 | 온라인 쇼핑은 대부분의 사람들에게 편리한 과정이지만, 시각장애인에게는 화면의 모든 내용을 음성으로 듣고 정보를 찾는 데 많은 시간이 필요합니다. 특히, 상품의 성분/영양 정보와 알레르기 정보 등 이미지로 제공되는 정보를 확인하는 과정에서 어려움을 겪고 있습니다. |
 | 기능 | - 상품 대표 이미지(썸네일)를 텍스트로 변환하여 전달 <br> - 상품의 크기 정보, 보관법, 성분/영양 정보 등의 상세 정보를 직관적인 텍스트로 제공 <br> - 리뷰 긍·부정 의견 요약, 키워드 기반 상품 추천 시스템 개발 |
@@ -82,8 +82,7 @@
 |   `-- src                  # 백엔드 소스 코드
 |-- doc
 |   |-- image                # 프로젝트 관련 이미지 자료 (다이어그램, 스크린샷 등)
-|   |-- ...pdf               # 프로젝트 발표 자료, 보고서 문서들
-|   `-- 기타 문서 파일들
+|   `-- ...pdf               # 프로젝트 발표 자료, 보고서 문서
 |-- eda
 |   |-- README.md            # EDA 모듈 개요 및 실행 가이드
 |   |-- eda1_visualize.ipynb # 데이터 시각화 Notebook (EDA 단계1)
@@ -108,26 +107,30 @@
     |   |-- src, data, size_info.yaml 등
     `-- thumbnail_description                # 썸네일 이미지 설명
         |-- README.md                        # 모듈 개요 및 실행 가이드
-        |-- main.py, prompt, src, utils 등
+        `-- main.py, prompt, src, utils 등
 
 ```
 
 <br>
 
-### 💾 프로젝트 설치 및 실행
-프로젝트는 모듈 별로 독립적인 실행 환경과 설치 방법이 존재합니다. 각 모듈의 상세 실행 방법은 해당 폴더 내의 README.md, environment.yml, config.yaml 등에서 확인할 수 있습니다. 아래는 각 모듈의 주요 실행 방법 안내입니다.
+## 💾 프로젝트 설치 및 실행
+본 프로젝트는 AI를 포함하여 프론트엔드, 백엔드 실행 방법이 각각 별도로 존재합니다. 상세 실행 방법은 해당 폴더 내의 `README.md`에서도 확인할 수 있습니다. 아래는 각 파트의 주요 실행 방법 안내입니다.
 
-### back (백엔드)
+### models (모델 관련 모듈)
 
-**설치:**  
-- Gradle을 통해 빌드합니다. (예: `./gradlew build`)
-- Docker 환경 사용 시, `docker-compose.yml`을 참고하여 Docker 이미지를 빌드 및 실행합니다.
+모델 관련 모듈은 총 5개가 있으며, 각 모델 모듈은 독립적인 Python 실행 환경을 요구합니다.
+
+- `nutrition_ingredients_information/` (성분/영양 정보)
+- `product_summarization/` (상품 상세정보 요약)
+- `review/` (리뷰 요약 및 추천 키워드별 상품 재정렬)
+- `size_description/` (상품 크기 정보)
+- `thumbnail_description/` (썸네일 이미지)
 
 **실행:**  
-- 로컬에서는 `./gradlew bootRun` 명령어로 실행합니다.
-- Docker 사용 시, `docker-compose up`으로 컨테이너를 구동합니다.
+- `environment.yml` 파일을 활용해 Conda 환경을 구성합니다.
+- `python main.py` 명령어로 관련 스크립트를 실행합니다.
 
-**참고:** 자세한 내용은 `back/README.md`를 확인하세요.
+> **주의:** 각 모듈의 구체적인 설치 및 실행 방법은 해당 모듈 내 README나 환경 설정 파일을 참고하시기 바랍니다.
 
 ### eda (데이터 탐색/분석)
 
@@ -140,41 +143,35 @@
 
 **참고:** 상세 가이드는 `eda/README.md`를 참고하세요.
 
-### front (프론트엔드)
+### frontend (크롬 확장 프로그램/애플리케이션)
 
 #### chrome_extension
 
-**설치 및 실행:**  
-- 파일 수정 후, 크롬 브라우저의 '압축 해제된 확장 프로그램'으로 로드합니다.  
-- 자세한 내용은 `front/chrome_extension/README.md`를 확인하세요.
+**설치:**  
+- `npm install`로 라이브러리를 설치합니다.
+
+**실행:**  
+- `npm build`로 프로젝트를 build합니다.
+- 크롬 브라우저에서 '압축 해제된 확장 프로그램'으로 `front/chrome_extension/dist`를 로드하면 설치 및 사용이 가능합니다.
 
 #### foodly_application
 
 **설치:**  
-- Node.js 기반으로, `npm install` 또는 `yarn` 명령어로 의존성을 설치합니다.
+- Node.js 기반으로, `npm install`로 의존성을 설치합니다.
+- React Native (iOS, Android Application)를 개발할 수 있는 환경이 설정되어 있어야 합니다. 자세한 환경설정은 [여기](https://reactnative.dev/docs/set-up-your-environment)를 참고해주세요.
+- (iOS) `cd front/chrome_extension/ios && pod install`을 이용하여 의존성을 설치합니다.
 
 **실행:**  
-- `npm start` 또는 `yarn start` 명령어로 개발 서버를 실행합니다.
+- (iOS) `npm run ios`로 실행합니다.
+- (Android) `npm run android`로 실행합니다.
 
-**참고:** 상세 내용은 `front/foodly_application/README.md`에서 확인하세요.
 
-### models (모델 관련 모듈)
+### backend (서버)
 
-모델 관련 모듈은 총 5개가 있으며, 각 모델 모듈은 독립적인 Python 실행 환경을 요구합니다.
-
-- `nutrition_ingredients_information/` (성분/영양 정보)
-- `product_summarization/` (상품 상세정보 요약)
-- `review/` (리뷰 요약 및 추천 키워드별 상품 재정렬)
-- `size_description/` (상품 크기 정보)
-- `thumbnail_description/` (썸네일 이미지)
-
-**설치 및 실행:**  
-- `environment.yml` 파일을 활용해 Conda 환경을 구성합니다.
+**설치:**  
+- `docker-compose.yml`을 참고하여 데이터베이스를 저장하는 mySQL을 실행합니다.
 
 **실행:**  
-- `python main.py` 명령어로 관련 스크립트를 실행합니다.
+- `./gradlew bootRun` 명령어로 백엔드 서버를 실행합니다.
 
-**참고:** 구체적인 내용은 각 모듈 별 `README.md`를 확인하세요.
-
-
-> **주의:** 각 모듈의 구체적인 설치 및 실행 방법은 해당 모듈 내 README나 환경 설정 파일을 반드시 참고하시기 바랍니다.
+**참고:** 자세한 내용은 `back/README.md`를 확인하세요.
